@@ -2,22 +2,26 @@ import { Text, View, StyleSheet, TouchableOpacity, StatusBar } from 'react-nativ
 import { useState } from 'react';
 import { Link, useNavigation } from "expo-router";
 export default function PINReset() {
-  
+
   const handleConfirm = () => {
+    const navigation = useNavigation();
     console.log('Confirm pressed - Navigate to set new password');
-    alert('Redirecting to set new PIN...');
+
     // Add your navigation logic here
-    // Example: navigation.navigate('NewPINSetup');
+    navigation.navigate('home' as never);
   };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      
+
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
-          <Text style={styles.backIcon}>←</Text>
+          <Link href="/login4">
+            <Text style={styles.backIcon}>←</Text>
+          </Link>
+
         </TouchableOpacity>
       </View>
 
@@ -29,12 +33,17 @@ export default function PINReset() {
         </Text>
 
         {/* Confirm Button */}
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.confirmButton}
           onPress={handleConfirm}
           activeOpacity={0.8}
         >
+          <Link href="/home">
           <Text style={styles.confirmButtonText}>Confirm</Text>
+          </Link>
+          
+
+
         </TouchableOpacity>
       </View>
     </View>
