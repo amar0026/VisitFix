@@ -17,13 +17,23 @@ export default function RootLayout() {
       <Stack>
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         {/* <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} /> */}
-         <Stack.Screen name="index" options={{ headerShown: false }} />
+         {/* <Stack.Screen name="index" options={{ headerShown: false }} />
          <Stack.Screen name="login1" options={{ headerShown: false }} />
          <Stack.Screen name="login2" options={{ headerShown: false }} />
          <Stack.Screen name="login3" options={{ headerShown: false }} />
          <Stack.Screen name="login4" options={{ headerShown: false }} />
-         <Stack.Screen name="login5" options={{ headerShown: false }} />
+         <Stack.Screen name="login5" options={{ headerShown: false }} /> 
            <Stack.Screen name="home" options={{ headerShown: false }} />
+           <Stack.Screen name="home2" options={{ headerShown: false }} />
+            <Stack.Screen name="home3" options={{ headerShown: false }} /> 
+              <Stack.Screen name="home4" options={{ headerShown: false }} /> 
+               <Stack.Screen name="home5" options={{ headerShown: false }} />
+               <Stack.Screen name="home6" options={{ headerShown: false }} />
+               <Stack.Screen name="profilesetup" options={{ headerShown: false }} />
+               <Stack.Screen name="addproject" options={{ headerShown: false }} />
+               <Stack.Screen name="projectdetail" options={{ headerShown: false }} /> */}
+               <Stack.Screen name="mypost" options={{ headerShown: false }} />
+
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

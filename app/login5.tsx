@@ -1,10 +1,9 @@
-import { Text, View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
-import { useState } from 'react';
 import { Link, useNavigation } from "expo-router";
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default function PINReset() {
-
+const navigation = useNavigation();
   const handleConfirm = () => {
-    const navigation = useNavigation();
+    
     console.log('Confirm pressed - Navigate to set new password');
 
     // Add your navigation logic here

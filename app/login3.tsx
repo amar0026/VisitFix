@@ -114,8 +114,6 @@ export default function OTPVerification() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
-          
-
             <Link href="/login2">
                            <Text style={styles.backIcon}>←</Text>
                                 </Link>

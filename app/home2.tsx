@@ -1,34 +1,47 @@
 import { Text, View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
-import { useState } from 'react';
-import { Link, useNavigation } from "expo-router";
-export default function PINReset() {
-    const handleConfirm = () => {
-        const navigation = useNavigation();
-        console.log('Confirm pressed - Navigate to set new password');
-        navigation.navigate('home' as never);
+import { useRouter } from "expo-router";
+export default function VerificationPending() {
+    const router = useRouter();
+
+    const handleThankYou = () => {
+        console.log('Thank You pressed - Navigate to home3');
+        try {
+            router.push('/home3');
+        } catch (error) {
+            console.log('Navigation error:', error);
+        }
     };
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle="dark-content" />
+            
             {/* Header */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.backButton}>
-                    <Link href="/login4">
-                        <Text style={styles.backIcon}>←</Text>
-                    </Link>
+                <TouchableOpacity 
+                    style={styles.backButton}
+                    onPress={() => router.back()}
+                >
+                    <Text style={styles.backIcon}>←</Text>
                 </TouchableOpacity>
             </View>
+
+            {/* Content */}
             <View style={styles.content}>
                 <Text style={styles.title}>Verification Pending</Text>
+                
                 <Text style={styles.subtitle}>
-                    Call 9999000099 to developer verification process or {'\n'}Someone from our team will contact you shortly to{'\n'} verify the details.
+                    Call 9999000099 to developer verification process or{'\n'}
+                    Someone from our team will contact you shortly to{'\n'}
+                    verify the details.
                 </Text>
+
                 <TouchableOpacity
-                    style={styles.confirmButton}
-                    onPress={handleConfirm}
+                    style={styles.thankYouButton}
+                    onPress={handleThankYou}
                     activeOpacity={0.8}
                 >
-                    <Text style={styles.confirmButtonText}>Thank You</Text>
+                    <Text style={styles.thankYouButtonText}>Thank You</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -46,40 +59,42 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     backButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
         backgroundColor: '#F5F5F5',
         alignItems: 'center',
         justifyContent: 'center',
     },
     backIcon: {
-        fontSize: 22,
+        fontSize: 20,
         color: '#333',
         fontWeight: '600',
     },
     content: {
         flex: 1,
-        paddingHorizontal: 20,
-        paddingTop: 20,
+        paddingHorizontal: 30,
+        paddingTop: 40,
+        alignItems: 'center',
     },
     title: {
-        alignItems: 'center',
-        fontSize: 28,
+        fontSize: 22,
         fontWeight: '700',
         color: '#1A1A1A',
-        marginBottom: 12,
+        marginBottom: 20,
+        textAlign: 'center',
     },
     subtitle: {
-        alignItems: 'center',
-        fontSize: 14,
-        color: '#999',
-        lineHeight: 22,
+        fontSize: 13,
+        color: '#666',
+        lineHeight: 20,
         marginBottom: 35,
+        textAlign: 'center',
     },
-    confirmButton: {
+    thankYouButton: {
         backgroundColor: '#2196F3',
-        paddingVertical: 18,
+        paddingVertical: 16,
+        paddingHorizontal: 80,
         borderRadius: 10,
         alignItems: 'center',
         shadowColor: '#2196F3',
@@ -88,9 +103,9 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 5,
     },
-    confirmButtonText: {
-        color: 'white',
+    thankYouButtonText: {
+        color: '#FFFFFF',
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '700',
     },
 });

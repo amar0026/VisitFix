@@ -1,47 +1,60 @@
+
+import { useNavigation } from "expo-router";
 import React, { useState } from "react";
-import{View,Text,TextInput,TouchableOpacity,StyleSheet,Alert,ScrollView,Image,StatusBar} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-type UserType = "broker" | "builder";
-interface FormData {
-  fullName: string;
-  email: string;
-  companyName: string;
-  designation: string;
-  gstinMember: string;
-  panNumber: string;
-}
-const VisitfixRegister: React.FC = () => {
-  const [userType, setUserType] = useState<UserType>("builder");
-  const [formData, setFormData] = useState<FormData>({
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+const VisitfixRegister = () => {
+  const navigation= useNavigation();
+  const [userType, setUserType] = useState("builder");
+  const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     companyName: "",
     designation: "",
-    gstinMember: "",
-    panNumber: "",
+    owner: "",
+    sourcingManager: "",
+    salesTeam: "",
   });
-  const handleInputChange = (key: keyof FormData, value: string): void => {
-    setFormData(prev => ({ ...prev, [key]: value }));
+
+  const handleInputChange = (key, value) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
   };
-  const handleRegister = (): void => {
+
+  const handleRegister = () => {
     console.log("Registration data:", { userType, ...formData });
-    Alert.alert("Registration Submitted!", "Your registration data has been logged.");
+    Alert.alert(
+      "Registration Submitted!",
+      "Your registration data has been logged."
+    );
+ navigation.navigate("home2" as never);
   };
-  const handleUserTypeChange = (type: UserType): void => {
+
+  const handleUserTypeChange = (type) => {
     setUserType(type);
   };
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <StatusBar barStyle="dark-content" />
-      <View style={styles.imageContainer}>
-        <Image
-          source={{
-            uri: "https://res.cloudinary.com/dquki4xol/image/upload/v1761894404/full-shot-family-members-silhouettes-outdoors_23-2150039658_qmghjc.webp",
-          }}
-          style={styles.headerImage}
-        />
-        <View style={styles.gradientOverlay} />
-      </View>
+     {/* <View style={styles.container}> */}
+      
+      <Image 
+        source={{uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762838657/Group_1558_vw9vrd.png' }}
+        style={styles.image} 
+      />
+   
+
+      {/* Logo Section */}
       <View style={styles.logoContainer}>
         <View style={styles.logoGrid}>
           <View style={styles.logoRow}>
@@ -57,107 +70,174 @@ const VisitfixRegister: React.FC = () => {
           Visit<Text style={styles.logoBlue}>fix</Text>
         </Text>
       </View>
+
+      {/* User Type Toggle */}
       <View style={styles.toggleContainer}>
         <TouchableOpacity
           onPress={() => handleUserTypeChange("broker")}
           style={[
             styles.toggleButton,
-            userType === "broker" ? styles.toggleActive : styles.toggleInactive,
+            userType === "broker"
+              ? styles.toggleActive
+              : styles.toggleInactive,
           ]}
         >
           <Text
-            style={userType === "broker" ? styles.toggleTextActive : styles.toggleTextInactive}
+            style={
+              userType === "broker"
+                ? styles.toggleTextActive
+                : styles.toggleTextInactive
+            }
           >
             Broker
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() => handleUserTypeChange("builder")}
           style={[
             styles.toggleButton,
-            userType === "builder" ? styles.toggleActiveBlue : styles.toggleInactive,
+            userType === "builder"
+              ? styles.toggleActiveBlue
+              : styles.toggleInactive,
           ]}
         >
           <Text
-            style={userType === "builder" ? styles.toggleTextActive : styles.toggleTextInactive}
+            style={
+              userType === "builder"
+                ? styles.toggleTextActive
+                : styles.toggleTextInactive
+            }
           >
             Builder
           </Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.title}>Create your account</Text>
+
+      {/* Title */}
+      <Text style={styles.title}>
+        Create your <Text style={styles.titleBlue}>account</Text>
+      </Text>
       <Text style={styles.subtitle}>Verification Required</Text>
+
+      {/* Form - Blue Border Section */}
+      <View style={styles.blueBorderContainer}>
+        <View style={styles.inputWrapper}>
+          <Text style={styles.icon}>👤</Text>
+          <TextInput
+            style={styles.inputWithIcon}
+            placeholder="Full name"
+            value={formData.fullName}
+            onChangeText={(text) => handleInputChange("fullName", text)}
+            placeholderTextColor="#AAA"
+          />
+        </View>
+
+        <View style={styles.inputWrapper}>
+          <Text style={styles.icon}>✉️</Text>
+          <TextInput
+            style={styles.inputWithIcon}
+            placeholder="Email"
+            value={formData.email}
+            onChangeText={(text) => handleInputChange("email", text)}
+            placeholderTextColor="#AAA"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View style={styles.inputWrapper}>
+          <Text style={styles.icon}>🏢</Text>
+          <TextInput
+            style={styles.inputWithIcon}
+            placeholder="Company name"
+            value={formData.companyName}
+            onChangeText={(text) => handleInputChange("companyName", text)}
+            placeholderTextColor="#AAA"
+          />
+        </View>
+      </View>
+
+      {/* Designation Label */}
+      <View style={styles.labelContainer}>
+        <Text style={styles.icon}>📋</Text>
+        <Text style={styles.labelText}>Designation</Text>
+      </View>
+
+      {/* Red Border Section */}
       <View style={styles.formContainer}>
         <TextInput
-          style={styles.input}
-          placeholder="Full name"
-          value={formData.fullName}
-          onChangeText={(text) => handleInputChange("fullName", text)}
-          placeholderTextColor="#888"
+          style={[styles.input, styles.inputError]}
+          placeholder="Owner"
+          value={formData.owner}
+          onChangeText={(text) => handleInputChange("owner", text)}
+          placeholderTextColor="#CCC"
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={formData.email}
-          onChangeText={(text) => handleInputChange("email", text)}
-          placeholderTextColor="#888"
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Company name"
-          value={formData.companyName}
-          onChangeText={(text) => handleInputChange("companyName", text)}
-          placeholderTextColor="#888"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Designation"
-          value={formData.designation}
-          onChangeText={(text) => handleInputChange("designation", text)}
-          placeholderTextColor="#888"
-        />
+
         <TextInput
           style={[styles.input, styles.inputError]}
-          placeholder="Scroma Member"
-          value={formData.gstinMember}
-          onChangeText={(text) => handleInputChange("gstinMember", text)}
-          placeholderTextColor="#888"
+          placeholder="Sourcing Manager"
+          value={formData.sourcingManager}
+          onChangeText={(text) => handleInputChange("sourcingManager", text)}
+          placeholderTextColor="#CCC"
         />
+
         <TextInput
           style={[styles.input, styles.inputError]}
-          placeholder="PAN number"
-          value={formData.panNumber}
-          onChangeText={(text) => handleInputChange("panNumber", text)}
-          placeholderTextColor="#888"
-          autoCapitalize="characters"
-          maxLength={10}
+          placeholder="Sales Team"
+          value={formData.salesTeam}
+          onChangeText={(text) => handleInputChange("salesTeam", text)}
+          placeholderTextColor="#CCC"
         />
-        <Text style={styles.warningText}>Please scanna your credit cards magisk</Text>
+
+        <Text style={styles.warningText}>
+          (Owner-manager-sales team required)
+        </Text>
       </View>
+
+      {/* Terms */}
       <Text style={styles.termsText}>Terms of service</Text>
-      <TouchableOpacity style={styles.registerButton} onPress={handleRegister} activeOpacity={0.8}>
+
+      {/* Register Button */}
+      <TouchableOpacity
+        style={styles.registerButton}
+        onPress={handleRegister}
+        activeOpacity={0.8}
+      >
+
         <Text style={styles.registerButtonText}>Register</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 };
+
 export default VisitfixRegister;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
+   
+  },
+  image: {
+     marginBottom: 25,
+    width: "auto",
+    height:510,
+    resizeMode: 'cover', // or 'cover', 'stretch', 'repeat', 'center'
+  },
+  logoContainer: {
+    marginBottom: 25,
+    paddingHorizontal: 20,
+    flexDirection:"row",
+    gap:7,
   },
   imageContainer: {
-    height: 190,
-    overflow: "hidden",
-    position: "relative",
+   height:300
   },
   headerImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
+    width: "auto",
+    height: "auto",
+    resizeMode: "contain",
   },
   gradientOverlay: {
     position: "absolute",
@@ -167,50 +247,44 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "rgba(255,255,255,0.8)",
   },
-  logoContainer: {
-    alignItems: "center",
-    marginTop: -30,
-    marginBottom: 20,
-  },
   logoGrid: {
     flexDirection: "column",
-    marginBottom: 5,
+    marginBottom: 8,
   },
   logoRow: {
     flexDirection: "row",
   },
   logoSquare: {
-    width: 6,
-    height: 6,
+    width: 10,
+    height: 10,
     backgroundColor: "#4A90E2",
     margin: 1,
-    borderRadius: 1,
+    borderRadius: 1.5,
   },
   logoText: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#333",
+    color: "#1a1a1a",
   },
   logoBlue: {
     color: "#4A90E2",
   },
   toggleContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 25,
-    paddingHorizontal: 20,
+    marginBottom: 30,
+    paddingHorizontal: 15,
+    gap: 10,
   },
   toggleButton: {
     flex: 1,
-    paddingVertical: 10,
-    borderRadius: 25,
-    marginHorizontal: 5,
+    paddingVertical: 12,
+    borderRadius: 30,
     borderWidth: 1,
     alignItems: "center",
   },
   toggleActive: {
-    backgroundColor: "#333",
-    borderColor: "#333",
+    backgroundColor: "#4A90E2",
+    borderColor: "#4A90E2",
   },
   toggleActiveBlue: {
     backgroundColor: "#4A90E2",
@@ -218,38 +292,84 @@ const styles = StyleSheet.create({
   },
   toggleInactive: {
     backgroundColor: "#FFF",
-    borderColor: "#CCC",
+    borderColor: "#D0D0D0",
   },
   toggleTextActive: {
     color: "#FFF",
     fontWeight: "600",
+    fontSize: 15,
   },
   toggleTextInactive: {
-    color: "#333",
+    color: "#666",
+    fontWeight: "500",
+    fontSize: 15,
   },
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "700",
-    color: "#111",
-    textAlign: "center",
+    color: "#1a1a1a",
+    paddingHorizontal: 20,
+    marginBottom: 5,
+  },
+  titleBlue: {
+    color: "#4A90E2",
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: "#666",
-    textAlign: "center",
-    marginBottom: 15,
-  },
-  formContainer: {
     paddingHorizontal: 20,
+    marginBottom: 25,
   },
-  input: {
-    backgroundColor: "#F5F5F5",
-    borderColor: "#DDD",
-    borderWidth: 1,
+  blueBorderContainer: {
+    marginHorizontal: 15,
+    borderWidth: 3,
+    borderColor: "#4A90E2",
+    borderRadius: 10,
+    padding: 15,
+    backgroundColor: "#FFF",
+    marginBottom: 20,
+  },
+  inputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F8F8F8",
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 12,
     marginBottom: 10,
+    height: 50,
+  },
+  icon: {
+    fontSize: 18,
+    marginRight: 10,
+  },
+  inputWithIcon: {
+    flex: 1,
+    fontSize: 15,
+    color: "#000",
+    height: "100%",
+  },
+  labelContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    marginBottom: 15,
+  },
+  labelText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#1a1a1a",
+  },
+  formContainer: {
+    paddingHorizontal: 15,
+    marginBottom: 10,
+  },
+  input: {
+    backgroundColor: "#F8F8F8",
+    borderWidth: 2,
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    paddingVertical: 14,
+    marginBottom: 12,
     fontSize: 15,
     color: "#000",
   },
@@ -259,26 +379,35 @@ const styles = StyleSheet.create({
   warningText: {
     color: "#FF6B6B",
     fontSize: 12,
-    marginTop: 5,
+    marginTop: -5,
+    marginBottom: 10,
   },
   termsText: {
     textAlign: "center",
-    fontSize: 12,
-    color: "#555",
-    marginTop: 20,
-    marginBottom: 10,
+    fontSize: 13,
+    color: "#4A90E2",
+    marginTop: 15,
+    marginBottom: 15,
   },
   registerButton: {
     backgroundColor: "#4A90E2",
-    paddingVertical: 15,
-    borderRadius: 8,
-    marginHorizontal: 20,
-    marginBottom: 30,
+    paddingVertical: 16,
+    borderRadius: 10,
+    marginHorizontal: 35,
+    marginBottom: 40,
+    shadowColor: "#4A90E2",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
   },
   registerButtonText: {
     color: "#FFF",
     textAlign: "center",
-    fontWeight: "600",
+    fontWeight: "700",
     fontSize: 16,
   },
 });
