@@ -1,4 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { router, useNavigation } from "expo-router";
 import React, { useState } from 'react';
 import {
   Image,
@@ -10,12 +11,13 @@ import {
   View,
 } from 'react-native';
 export default function DashboardScreen() {
+  const navigation = useNavigation();
   const [showMore, setShowMore] = useState(false);
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-      
+
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.logoContainer}>
@@ -38,7 +40,7 @@ export default function DashboardScreen() {
           </View>
           <Text style={styles.brandText}>VisitFix</Text>
         </View>
-        
+
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.headerIcon}>
             <View style={styles.searchCircle} />
@@ -58,7 +60,7 @@ export default function DashboardScreen() {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-       {/* Stats Section */}
+        {/* Stats Section */}
         <View style={styles.statsSection}>
           <View style={styles.statsRow}>
             <View style={[styles.statBox, styles.statBlue]}>
@@ -68,7 +70,7 @@ export default function DashboardScreen() {
                 <Text style={styles.statMonth}>+3</Text>
                 <Text style={styles.statMonth}>This month</Text>
               </View>
-              <Image 
+              <Image
                 source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762757122/Group_4_boss8w.png' }}
                 style={styles.statIcon}
               />
@@ -81,7 +83,7 @@ export default function DashboardScreen() {
                 <Text style={styles.statMonth}>+3</Text>
                 <Text style={styles.statMonth}>This month</Text>
               </View>
-              <Image 
+              <Image
                 source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762757121/logos_eventbrite-icon_capmsy.png' }}
                 style={styles.statIcon}
               />
@@ -96,8 +98,8 @@ export default function DashboardScreen() {
                 <Text style={styles.statMonth}>+3</Text>
                 <Text style={styles.statMonth}>This month</Text>
               </View>
-              <Image 
-                source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762757122/Group_5_em28vu.png' }}
+              <Image
+                source={{ uri:'https://res.cloudinary.com/dquki4xol/image/upload/v1762757122/Group_5_em28vu.png' }}
                 style={styles.statIcon}
               />
             </View>
@@ -109,8 +111,8 @@ export default function DashboardScreen() {
                 <Text style={styles.statMonth}>+3</Text>
                 <Text style={styles.statMonth}>This month</Text>
               </View>
-              <Image 
-                source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762757121/Group_6_esygkj.png' }}
+              <Image
+                source={{ uri:'https://res.cloudinary.com/dquki4xol/image/upload/v1762757121/Group_6_esygkj.png' }}
                 style={styles.statIcon}
               />
             </View>
@@ -131,17 +133,17 @@ export default function DashboardScreen() {
               <Text style={styles.statMonth}>This month</Text>
             </View>
           </View>
-{showMore && (
+          {showMore && (
 
-          <View style={styles.statsRow}>
-            <View style={styles.statBox}>
-              <Text style={styles.statLabel}>MY TEAM</Text>
-              <Text style={styles.statNumber}>16</Text>
-              <Text style={styles.statMonth}>This month</Text>
+            <View style={styles.statsRow}>
+              <View style={styles.statBox}>
+                <Text style={styles.statLabel}>MY TEAM</Text>
+                <Text style={styles.statNumber}>16</Text>
+                <Text style={styles.statMonth}>This month</Text>
+              </View>
             </View>
-          </View>
-)}
-         <TouchableOpacity
+          )}
+          <TouchableOpacity
             style={styles.moreButton}
             onPress={() => setShowMore(!showMore)}
             activeOpacity={0.7}
@@ -155,7 +157,7 @@ export default function DashboardScreen() {
               color="#4A5568"
             />
           </TouchableOpacity>
-          </View>
+        </View>
 
         {/* Skyline Residences */}
         <View style={styles.projectSection}>
@@ -165,49 +167,43 @@ export default function DashboardScreen() {
               <Text style={styles.arrowRight}>›</Text>
             </TouchableOpacity>
           </View>
-
           <View style={styles.projectBody}>
             <View style={styles.projectLeft}>
               <Text style={styles.projectLabel}>Address: <Text style={styles.projectValue}>Andheri East, Post Office,</Text></Text>
-               <Text style={styles.projectLabel}>Phone: <Text style={styles.projectValue}>022-26703985</Text></Text>
+              <Text style={styles.projectLabel}>Phone: <Text style={styles.projectValue}>022-26703985</Text></Text>
               <Text style={styles.projectLabel}>Pincode: <Text style={styles.projectValue}>400093</Text></Text>
-              
               <View style={styles.container}>
-      <View style={styles.row}>
-        {/* Left column */}
-        <View style={styles.leftColumn}>
-          <Text style={styles.label}>Type</Text>
-          <Text style={styles.value}>Residential{"\n"}Flat</Text>
-        </View>
+                <View style={styles.row}>
+                  {/* Left column */}
+                  <View style={styles.leftColumn}>
+                    <Text style={styles.label}>Type</Text>
+                    <Text style={styles.value}>Residential{"\n"}Flat</Text>
+                  </View>
+                  {/* Divider */}
+                  <View style={styles.verticalLine} />
+                  {/* Right columns */}
+                  <View style={styles.rightSection}>
+                    <View style={styles.rightBlock}>
+                      <Text style={styles.label}>Total Wings</Text>
+                      <Text style={styles.value}>04</Text>
+                    </View>
+                    <View style={styles.rightBlock}>
+                      <Text style={styles.label}>Unit types</Text>
+                      <Text style={styles.value}>2BHK, 3BHK, 4BHK</Text>
+                    </View>
+                  </View>
+                </View>
+                {/* Horizontal Divider */}
+                <View style={styles.horizontalLine} />
+                {/* Bottom Info */}
+                <Text style={styles.infoText}>
+                  Total Units available. <Text style={styles.bold}>50</Text>
+                </Text>
+                <Text style={styles.infoText}>
+                  Total Subscribed Brokers. <Text style={styles.bold}>15</Text>
+                </Text>
+              </View>
 
-        {/* Divider */}
-        <View style={styles.verticalLine} />
-
-        {/* Right columns */}
-        <View style={styles.rightSection}>
-          <View style={styles.rightBlock}>
-            <Text style={styles.label}>Total Wings</Text>
-            <Text style={styles.value}>04</Text>
-          </View>
-          <View style={styles.rightBlock}>
-            <Text style={styles.label}>Unit types</Text>
-            <Text style={styles.value}>2BHK, 3BHK, 4BHK</Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Horizontal Divider */}
-      <View style={styles.horizontalLine} />
-
-      {/* Bottom Info */}
-      <Text style={styles.infoText}>
-        Total Units available. <Text style={styles.bold}>50</Text>
-      </Text>
-      <Text style={styles.infoText}>
-        Total Subscribed Brokers. <Text style={styles.bold}>15</Text>
-      </Text>
-    </View>
-              
               <View style={styles.ratingRow}>
                 <Text style={styles.ratingLabel}>Project rating out of 5</Text>
                 <View style={styles.ratingValue}>
@@ -228,18 +224,21 @@ export default function DashboardScreen() {
         </View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
-          <View style={styles.projectCard}>
-            <Image
-              source={{ uri: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400' }}
-              style={styles.cardImage}
-            />
-            <View style={styles.cardInfo}>
-              <Text style={styles.cardTitle}>Sky Dandelions</Text>
-              <Text style={styles.cardSubtitle}>Apartment</Text>
-              <Text style={styles.cardPrice}>₹ 3.5cr</Text>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('skyline' as never);
+          }} >
+            <View style={styles.projectCard}>
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400' }}
+                style={styles.cardImage}
+              />
+              <View style={styles.cardInfo}>
+                <Text style={styles.cardTitle}>Sky Dandelions</Text>
+                <Text style={styles.cardSubtitle}>Apartment</Text>
+                <Text style={styles.cardPrice}>₹ 3.5cr</Text>
+              </View>
             </View>
-          </View>
-
+          </TouchableOpacity>
           <View style={styles.projectCard}>
             <Image
               source={{ uri: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400' }}
@@ -293,24 +292,28 @@ export default function DashboardScreen() {
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
-          <Image 
-            source={{uri:'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/ic_sharp-dashboard_ythesa.png' }} 
+          <Image
+            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/ic_sharp-dashboard_ythesa.png' }}
             style={styles.navIconImage}
           />
           <Text style={styles.navLabelActive}>Dashboard</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.navItem}>
-          <Image 
-            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/carbon_media-library-filled_islmia.png' }} 
+        
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => router.push('/socialpage')} 
+        >
+          <Image
+            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/carbon_media-library-filled_islmia.png' }}
             style={styles.navIconImage}
           />
-          <Text style={styles.navLabel}>Social Media </Text>
+          <Text style={styles.navLabel}>Social</Text>
         </TouchableOpacity>
 
-         <TouchableOpacity style={styles.navItem}>
-          <Image 
-            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/iconoir_plus-circle-solid_bp9xwh.png' }} 
+
+        <TouchableOpacity style={styles.navItem}>
+          <Image
+            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/iconoir_plus-circle-solid_bp9xwh.png' }}
             style={styles.navIconImage}
           />
           <Text style={styles.navLabel}>Create</Text>
@@ -318,16 +321,16 @@ export default function DashboardScreen() {
 
 
         <TouchableOpacity style={styles.navItem}>
-          <Image 
-            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/solar_tag-bold_mnaolv.png' }} 
+          <Image
+            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/solar_tag-bold_mnaolv.png' }}
             style={styles.navIconImage}
           />
           <Text style={styles.navLabel}>Tags </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navItem}>
-          <Image 
-            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/flowbite_users-solid_a9myku.png' }} 
+          <Image
+            source={{ uri: 'https://res.cloudinary.com/dquki4xol/image/upload/v1762755888/flowbite_users-solid_a9myku.png' }}
             style={styles.navIconImage}
           />
           <Text style={styles.navLabel}>Brokers</Text>
@@ -384,7 +387,7 @@ const styles = StyleSheet.create({
     height: 24,
     position: 'relative',
   },
-    row: {
+  row: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -554,7 +557,7 @@ const styles = StyleSheet.create({
     gap: 8,
     minHeight: 90,
   },
-   moreButton1: {
+  moreButton1: {
     flex: 1,
     borderRadius: 8,
     padding: 12,
@@ -672,14 +675,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#000000',
   },
-  // moreButton: {
-  //   flexDirection: "row",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   paddingVertical:0.015,
-  //   gap:0.015,
-  //   marginTop: 0.01,
-  // },
   moreButtonText: {
     fontSize: 13,
     color: "#4A5568",
